@@ -446,20 +446,22 @@
             overflow: hidden;
         }
 
-        .products-header {
-            position: absolute;
-            top: 8rem;
-            left: 4rem;
-            z-index: 10;
+        .products-header-item {
+            flex-shrink: 0;
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 2rem;
         }
 
-        .products-header h2 {
+        .products-header-item h2 {
             font-size: clamp(3rem, 5vw, 4.5rem);
             color: var(--forest);
             margin-bottom: 1rem;
         }
 
-        .products-header p {
+        .products-header-item p {
             font-size: 1.2rem;
             color: var(--charcoal);
             max-width: 500px;
@@ -983,12 +985,12 @@
                 font-size: 3rem;
             }
 
-            .products-header {
-                left: 2rem;
-                top: 6rem;
+            .products-header-item {
+                width: 280px;
+                padding-right: 1rem;
             }
 
-            .products-header h2 {
+            .products-header-item h2 {
                 font-size: 2.5rem;
             }
 
@@ -1150,63 +1152,36 @@
     <!-- Horizontal Scroll Products -->
     <section class="products-section" id="products">
         <div class="products-sticky">
-            <div class="products-header">
-                <h2>Our Collection</h2>
-                <p>Premium jute packaging designed for modern brands</p>
-            </div>
             <div class="products-track">
+                <div class="products-header-item">
+                    <h2>Our Collection</h2>
+                    <p>Premium jute packaging designed for modern brands</p>
+                </div>
                 <div class="product-card">
                     <div class="product-image-container">
-                        <div class="product-image-placeholder">📸 Add: Luxury Shopping Tote<br>(Branded jute bag with leather handles)</div>
+                        <img src="images/tote.jpg" alt="Luxury Shopping Tote" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="product-info">
                         <h3>Luxury Totes</h3>
-                        <p>Premium shopping bags for high-end retail</p>
+                        <p>Luxury Shopping Tote with high-end finishing</p>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-image-container">
-                        <div class="product-image-placeholder">📸 Add: Wine Bottle Bag<br>(Elegant jute wine carrier)</div>
+                        <img src="images/wine.jpg" alt="Wine Bottle Carrier" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="product-info">
                         <h3>Wine Carriers</h3>
-                        <p>Sophisticated packaging for premium beverages</p>
+                        <p>Sophisticated jute carrier for premium wines</p>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-image-container">
-                        <div class="product-image-placeholder">📸 Add: Corporate Gift Bag<br>(Custom branded event giveaway)</div>
+                        <img src="images/gift.jpg" alt="Corporate Gift Bag" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="product-info">
                         <h3>Corporate Gifts</h3>
-                        <p>Branded solutions for events and conferences</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <div class="product-image-placeholder">📸 Add: Eco Tote Bag<br>(Everyday sustainable shopping bag)</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Eco Totes</h3>
-                        <p>Everyday bags for conscious consumers</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <div class="product-image-placeholder">📸 Add: Drawstring Pouch<br>(Small jute bag with cord closure)</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Drawstring Bags</h3>
-                        <p>Versatile pouches for cosmetics & jewelry</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <div class="product-image-placeholder">📸 Add: Beach Bag<br>(Large jute tote for lifestyle brands)</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Beach Bags</h3>
-                        <p>Spacious carriers for lifestyle brands</p>
+                        <p>Custom branded premium event giveaway</p>
                     </div>
                 </div>
             </div>
