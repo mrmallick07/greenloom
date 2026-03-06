@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenLoom | Sustainable Packaging Reimagined</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <style>
+        :root {
+            --forest: #1a3a2e;
+            --sage: #4a7c59;
+            --moss: #6b9b7d;
+            --sand: #e8d5b7;
+            --cream: #faf8f5;
+            --terracotta: #d4896d;
+            --charcoal: #2d2d2d;
+            --gold: #c9a961;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: var(--charcoal);
+            background: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--forest);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--sage);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+            opacity: 0.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav.scrolled {
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            padding: 1.2rem 4rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--forest);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--sage);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-nav {
+            background: var(--forest);
+            color: var(--cream);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .cta-nav:hover {
+            background: var(--sage);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(26, 58, 46, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--sand) 100%);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 20% 50%, var(--sage) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--terracotta) 0%, transparent 50%);
+        }
+
+        .hero-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-label {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--sage);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--forest);
+            margin-bottom: 2rem;
+            opacity: 0;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            color: var(--charcoal);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            opacity: 0;
+            max-width: 600px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--forest);
+            color: var(--cream);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .hero-cta:hover::before {
+            left: 100%;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(26, 58, 46, 0.4);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--sage);
+        }
+
+        .scroll-line {
+            width: 2px;
+            height: 60px;
+            background: var(--sage);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: var(--forest);
+            animation: scrollDown 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollDown {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(200%); }
+        }
+
+        /* Sustainability Section */
+        .sustainability {
+            padding: 10rem 4rem;
+            background: var(--forest);
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sustainability::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(106, 155, 125, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(212, 137, 109, 0.1) 0%, transparent 50%);
+        }
+
+        .sustainability-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--moss);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(3rem, 5vw, 5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .sustainability-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .sustainability-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sustainability-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--moss);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .sustainability-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+
+        .sustainability-card p {
+            color: var(--sand);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 8rem 4rem;
+            background: var(--cream);
+            position: relative;
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 5vw, 5rem);
+            font-weight: 900;
+            color: var(--forest);
+            line-height: 1;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* Horizontal Scroll Products */
+        .products-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: var(--sand);
+        }
+
+        .products-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .products-header {
+            position: absolute;
+            top: 8rem;
+            left: 4rem;
+            z-index: 10;
+        }
+
+        .products-header h2 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            color: var(--forest);
+            margin-bottom: 1rem;
+        }
+
+        .products-header p {
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            max-width: 500px;
+        }
+
+        .products-track {
+            display: flex;
+            gap: 3rem;
+            padding: 0 4rem;
+            will-change: transform;
+        }
+
+        .product-card {
+            flex-shrink: 0;
+            width: 450px;
+            height: 600px;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(135deg, var(--sand), var(--cream));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image-placeholder {
+            font-size: 1rem;
+            color: var(--charcoal);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .product-info {
+            padding: 2rem;
+            height: 30%;
+        }
+
+        .product-info h3 {
+            font-size: 1.8rem;
+            color: var(--forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info p {
+            color: var(--charcoal);
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        /* Brand Showcase Section */
+        .brands {
+            padding: 10rem 4rem;
+            background: var(--cream);
+        }
+
+        .brands-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .brand-case {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .brand-case:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .brand-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, var(--sand), var(--moss));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-logo-placeholder {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--forest);
+            font-size: 1.5rem;
+        }
+
+        .brand-content {
+            padding: 3rem;
+        }
+
+        .brand-content h3 {
+            font-size: 2rem;
+            color: var(--forest);
+            margin-bottom: 1rem;
+        }
+
+        .brand-stats {
+            display: flex;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+
+        .brand-stat {
+            flex: 1;
+        }
+
+        .brand-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--sage);
+            display: block;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .brand-stat-label {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            opacity: 0.7;
+        }
+
+        .brand-content p {
+            color: var(--charcoal);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 10rem 4rem;
+            background: linear-gradient(180deg, var(--cream) 0%, white 100%);
+        }
+
+        .process-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .process-steps {
+            margin-top: 6rem;
+            position: relative;
+        }
+
+        .process-step {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            margin-bottom: 8rem;
+            align-items: center;
+        }
+
+        .process-step:nth-child(even) {
+            direction: rtl;
+        }
+
+        .process-step:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .step-visual {
+            height: 400px;
+            background: linear-gradient(135deg, var(--sand), var(--moss));
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-number {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.2);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        .step-content h3 {
+            font-size: 2.5rem;
+            color: var(--forest);
+            margin-bottom: 1.5rem;
+        }
+
+        .step-content p {
+            font-size: 1.15rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .step-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step-features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.05rem;
+            color: var(--charcoal);
+        }
+
+        .step-features li::before {
+            content: '✓';
+            color: var(--sage);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 10rem 4rem;
+            background: var(--forest);
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 50%, rgba(106, 155, 125, 0.1) 0%, transparent 70%);
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-info h2 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 3.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: var(--cream);
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(250, 248, 245, 0.5);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--moss);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.3rem;
+            background: var(--cream);
+            color: var(--forest);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            background: var(--sand);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--sand);
+            padding: 4rem 4rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .footer-tagline {
+            font-size: 1.1rem;
+            opacity: 0.7;
+            margin-bottom: 3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--sand);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cream);
+        }
+
+        .footer-copyright {
+            opacity: 0.5;
+            font-size: 0.9rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.5);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 15px 50px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-float svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .sustainability-grid,
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .brands-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .process-step:nth-child(even) {
+                direction: ltr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .products-track {
+                padding: 0 2rem;
+            }
+
+            .product-card {
+                width: 350px;
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            .hero,
+            .sustainability,
+            .stats,
+            .brands,
+            .process,
+            .contact {
+                padding: 6rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .products-header {
+                left: 2rem;
+                top: 6rem;
+            }
+
+            .products-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .product-card {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        /* Loading Animation */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--forest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--cream);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-logo">GreenLoom</div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav id="nav">
+        <div class="nav-container">
+            <div class="logo">GreenLoom</div>
+            <ul class="nav-links">
+                <li><a href="#sustainability">Impact</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#brands">Case Studies</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#contact" class="cta-nav">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-label">Sustainable Packaging Solutions</div>
+                <h1>Weaving<br>Sustainability<br>into Brands</h1>
+                <p class="hero-subtitle">Premium customized jute packaging that transforms your brand's environmental impact while elevating customer experience.</p>
+                <a href="#contact" class="hero-cta">
+                    Request Samples
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Sustainability Section -->
+    <section class="sustainability" id="sustainability">
+        <div class="sustainability-container">
+            <div class="section-header">
+                <div class="section-label">Why It Matters</div>
+                <h2 class="section-title">The Sustainability Imperative</h2>
+                <p class="section-subtitle">Every year, 5 trillion plastic bags are used globally. It's time for brands to lead the change toward a circular economy.</p>
+            </div>
+
+            <div class="sustainability-grid">
+                <div class="sustainability-card">
+                    <span class="card-icon">🌍</span>
+                    <h3>Plastic Crisis</h3>
+                    <p>1 million plastic bags are used every minute worldwide. Only 9% are recycled. The rest pollute oceans, harm wildlife, and take 1,000 years to decompose.</p>
+                </div>
+                <div class="sustainability-card">
+                    <span class="card-icon">🛍️</span>
+                    <h3>Consumer Demand</h3>
+                    <p>73% of consumers prefer brands with sustainable packaging. Eco-friendly packaging isn't just ethical—it's a competitive advantage that drives loyalty.</p>
+                </div>
+                <div class="sustainability-card">
+                    <span class="card-icon">⚖️</span>
+                    <h3>Regulatory Pressure</h3>
+                    <p>Over 120 countries have banned or restricted single-use plastics. Compliance isn't optional—it's mandatory for brands operating globally.</p>
+                </div>
+                <div class="sustainability-card">
+                    <span class="card-icon">♻️</span>
+                    <h3>Circular Economy</h3>
+                    <p>Jute is 100% biodegradable and reusable. Unlike plastic, it enriches soil when decomposed, creating a true closed-loop system.</p>
+                </div>
+                <div class="sustainability-card">
+                    <span class="card-icon">🌱</span>
+                    <h3>Carbon Negative</h3>
+                    <p>Jute plants absorb more CO₂ than they emit during production. Choosing jute actively reduces your brand's carbon footprint.</p>
+                </div>
+                <div class="sustainability-card">
+                    <span class="card-icon">💚</span>
+                    <h3>Brand Perception</h3>
+                    <p>Sustainable packaging communicates values. Customers remember brands that align with their environmental consciousness and social responsibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number" data-target="500">0</span>
+                <div class="stat-label">Min Order Quantity</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="7">0</span>
+                <div class="stat-label">Day Delivery</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="100">0</span>
+                <div class="stat-label">% Customizable</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="0">0</span>
+                <div class="stat-label">Plastic Used</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horizontal Scroll Products -->
+    <section class="products-section" id="products">
+        <div class="products-sticky">
+            <div class="products-header">
+                <h2>Our Collection</h2>
+                <p>Premium jute packaging designed for modern brands</p>
+            </div>
+            <div class="products-track">
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">📸 Add: Luxury Shopping Tote<br>(Branded jute bag with leather handles)</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Luxury Totes</h3>
+                        <p>Premium shopping bags for high-end retail</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">📸 Add: Wine Bottle Bag<br>(Elegant jute wine carrier)</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Wine Carriers</h3>
+                        <p>Sophisticated packaging for premium beverages</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">📸 Add: Corporate Gift Bag<br>(Custom branded event giveaway)</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Corporate Gifts</h3>
+                        <p>Branded solutions for events and conferences</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">📸 Add: Eco Tote Bag<br>(Everyday sustainable shopping bag)</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Eco Totes</h3>
+                        <p>Everyday bags for conscious consumers</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">📸 Add: Drawstring Pouch<br>(Small jute bag with cord closure)</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Drawstring Bags</h3>
+                        <p>Versatile pouches for cosmetics & jewelry</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">📸 Add: Beach Bag<br>(Large jute tote for lifestyle brands)</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Beach Bags</h3>
+                        <p>Spacious carriers for lifestyle brands</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Showcase -->
+    <section class="brands" id="brands">
+        <div class="brands-container">
+            <div class="section-header">
+                <div class="section-label">Success Stories</div>
+                <h2 class="section-title">Brands We've Empowered</h2>
+                <p class="section-subtitle">See how businesses transformed their packaging and customer perception</p>
+            </div>
+
+            <div class="brands-grid">
+                <div class="brand-case">
+                    <div class="brand-image">
+                        <div class="brand-logo-placeholder">BRAND A</div>
+                    </div>
+                    <div class="brand-content">
+                        <h3>Organic Skincare Brand</h3>
+                        <div class="brand-stats">
+                            <div class="brand-stat">
+                                <span class="brand-stat-number">+45%</span>
+                                <span class="brand-stat-label">Customer Loyalty</span>
+                            </div>
+                            <div class="brand-stat">
+                                <span class="brand-stat-number">10K</span>
+                                <span class="brand-stat-label">Bags Delivered</span>
+                            </div>
+                        </div>
+                        <p>"Switching to GreenLoom's jute bags elevated our brand perception overnight. Customers love that our packaging aligns with our organic values."</p>
+                    </div>
+                </div>
+
+                <div class="brand-case">
+                    <div class="brand-image">
+                        <div class="brand-logo-placeholder">BRAND B</div>
+                    </div>
+                    <div class="brand-content">
+                        <h3>Fashion E-commerce</h3>
+                        <div class="brand-stats">
+                            <div class="brand-stat">
+                                <span class="brand-stat-number">+30%</span>
+                                <span class="brand-stat-label">Repeat Orders</span>
+                            </div>
+                            <div class="brand-stat">
+                                <span class="brand-stat-number">50K</span>
+                                <span class="brand-stat-label">Units Sold</span>
+                            </div>
+                        </div>
+                        <p>"Our customers actually reuse the bags daily. That's free advertising every time they step out. Best branding investment we've made."</p>
+                    </div>
+                </div>
+
+                <div class="brand-case">
+                    <div class="brand-image">
+                        <div class="brand-logo-placeholder">BRAND C</div>
+                    </div>
+                    <div class="brand-content">
+                        <h3>Corporate Event Planner</h3>
+                        <div class="brand-stats">
+                            <div class="brand-stat">
+                                <span class="brand-stat-number">100%</span>
+                                <span class="brand-stat-label">On-Time Delivery</span>
+                            </div>
+                            <div class="brand-stat">
+                                <span class="brand-stat-number">5K</span>
+                                <span class="brand-stat-label">Event Bags</span>
+                            </div>
+                        </div>
+                        <p>"Needed 5,000 branded bags for a conference in 10 days. GreenLoom delivered flawlessly. Quality exceeded expectations."</p>
+                    </div>
+                </div>
+
+                <div class="brand-case">
+                    <div class="brand-image">
+                        <div class="brand-logo-placeholder">BRAND D</div>
+                    </div>
+                    <div class="brand-content">
+                        <h3>Artisan Coffee Roaster</h3>
+                        <div class="brand-stats">
+                            <div class="brand-stat">
+                                <span class="brand-stat-number">+60%</span>
+                                <span class="brand-stat-label">Social Shares</span>
+                            </div>
+                            <div class="brand-stat">
+                                <span class="brand-stat-number">3K</span>
+                                <span class="brand-stat-label">Custom Bags</span>
+                            </div>
+                        </div>
+                        <p>"Our jute coffee bags became Instagram-worthy. Customers tag us constantly. The ROI on sustainable packaging is real."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="process-container">
+            <div class="section-header">
+                <div class="section-label">How We Work</div>
+                <h2 class="section-title">From Concept to Delivery</h2>
+                <p class="section-subtitle">Transparent, efficient, and hassle-free collaboration</p>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-visual">
+                        <div class="step-number">01</div>
+                        <div class="product-image-placeholder">📸 Consultation Visual</div>
+                    </div>
+                    <div class="step-content">
+                        <h3>Discovery & Consultation</h3>
+                        <p>Share your brand vision, quantity needs, and timeline. We discuss customization options, handle types, sizes, and printing techniques.</p>
+                        <ul class="step-features">
+                            <li>Free design mockups</li>
+                            <li>Material samples provided</li>
+                            <li>Transparent pricing breakdown</li>
+                            <li>MOQ starting at 500 units</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-visual">
+                        <div class="step-number">02</div>
+                        <div class="product-image-placeholder">📸 Sampling Visual</div>
+                    </div>
+                    <div class="step-content">
+                        <h3>Sampling & Approval</h3>
+                        <p>Within 48 hours, we deliver physical samples with your logo placement. You review quality, feel, and branding before bulk production.</p>
+                        <ul class="step-features">
+                            <li>48-hour sample turnaround</li>
+                            <li>Unlimited revisions included</li>
+                            <li>Color matching with Pantone</li>
+                            <li>Logo proofing & positioning</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-visual">
+                        <div class="step-number">03</div>
+                        <div class="product-image-placeholder">📸 Production Visual</div>
+                    </div>
+                    <div class="step-content">
+                        <h3>Production & Quality Control</h3>
+                        <p>Our manufacturer partner begins bulk production. Every bag undergoes multi-stage quality checks before packaging.</p>
+                        <ul class="step-features">
+                            <li>ISO-certified manufacturers</li>
+                            <li>Real-time production updates</li>
+                            <li>Quality checks at 3 stages</li>
+                            <li>Eco-friendly inks & dyes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-visual">
+                        <div class="step-number">04</div>
+                        <div class="product-image-placeholder">📸 Delivery Visual</div>
+                    </div>
+                    <div class="step-content">
+                        <h3>Delivery & Partnership</h3>
+                        <p>Your order arrives in 7-10 days with detailed invoicing. We provide ongoing support for reorders, design tweaks, and scaling.</p>
+                        <ul class="step-features">
+                            <li>7-10 day delivery guarantee</li>
+                            <li>Secure packaging for transit</li>
+                            <li>Dedicated account manager</li>
+                            <li>Volume discounts for repeat orders</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Let's Create Something Sustainable Together</h2>
+                <p>Whether you need 500 bags or 50,000, we're here to bring your brand's sustainability vision to life.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong>Email</strong><br>
+                            <span style="color: var(--sand);">hello@greenloom.com</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <strong>WhatsApp</strong><br>
+                            <span style="color: var(--sand);">+91 XXXXX XXXXX</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Based in</strong><br>
+                            Kolkata, India
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label>Your Name *</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Company Name *</label>
+                    <input type="text" name="company" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Estimated Quantity</label>
+                    <select name="quantity">
+                        <option value="">Select range</option>
+                        <option value="500-1000">500 - 1,000 units</option>
+                        <option value="1000-5000">1,000 - 5,000 units</option>
+                        <option value="5000-10000">5,000 - 10,000 units</option>
+                        <option value="10000+">10,000+ units</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Your Requirements</label>
+                    <textarea name="message" placeholder="Tell us about your project..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">GreenLoom</div>
+            <div class="footer-tagline">Weaving sustainability into every brand</div>
+            <div class="footer-links">
+                <a href="#sustainability">Impact</a>
+                <a href="#products">Products</a>
+                <a href="#brands">Case Studies</a>
+                <a href="#process">Process</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 GreenLoom. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/91XXXXXXXXXX?text=Hi%20GreenLoom!%20I'm%20interested%20in%20sustainable%20jute%20packaging" class="whatsapp-float" target="_blank">
+        <svg viewBox="0 0 32 32">
+            <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.246 1.408 1.408-5.246-0.292-0.507c-1.224-2.162-1.87-4.588-1.87-7.070 0-7.467 6.067-13.533 13.533-13.533s13.533 6.067 13.533 13.533-6.067 13.533-13.533 13.533zM21.867 18.267c-0.373-0.187-2.214-1.093-2.56-1.213-0.347-0.133-0.6-0.187-0.853 0.187s-0.973 1.213-1.2 1.467c-0.213 0.24-0.44 0.267-0.813 0.080-0.373-0.187-1.573-0.587-3-1.867-1.107-0.987-1.853-2.2-2.067-2.573-0.213-0.373-0.027-0.573 0.16-0.76 0.173-0.16 0.373-0.44 0.56-0.653 0.187-0.213 0.24-0.373 0.373-0.627 0.133-0.24 0.067-0.467-0.027-0.653s-0.853-2.080-1.173-2.853c-0.307-0.747-0.627-0.64-0.853-0.653-0.213-0.013-0.467-0.013-0.72-0.013s-0.653 0.093-1 0.467c-0.347 0.373-1.333 1.307-1.333 3.187s1.36 3.693 1.547 3.947c0.187 0.24 2.613 4.053 6.373 5.533 0.893 0.373 1.587 0.6 2.133 0.76 0.893 0.293 1.707 0.253 2.347 0.147 0.72-0.107 2.214-0.907 2.52-1.787 0.32-0.88 0.32-1.64 0.227-1.787-0.080-0.133-0.333-0.227-0.707-0.413z"/>
+        </svg>
+    </a>
+
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Page Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.page-loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX + 'px';
+                follower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Navigation Scroll Effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Hero Animations
+        gsap.timeline()
+            .to('.hero-label', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+            .to('.hero h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.5')
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7')
+            .to('.hero-cta', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.5')
+            .to('.scroll-indicator', { opacity: 1, duration: 0.6 }, '-=0.3');
+
+        // Sustainability Cards Animation
+        gsap.from('.sustainability-card', {
+            scrollTrigger: {
+                trigger: '.sustainability-grid',
+                start: 'top 80%',
+            },
+            y: 60,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out'
+        });
+
+        // Stats Counter Animation
+        const stats = document.querySelectorAll('.stat-number');
+        stats.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-target'));
+            
+            ScrollTrigger.create({
+                trigger: stat,
+                start: 'top 80%',
+                onEnter: () => {
+                    let count = 0;
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        count += increment;
+                        if (count >= target) {
+                            stat.textContent = target + (target === 100 || target === 0 ? '' : '+');
+                            clearInterval(timer);
+                        } else {
+                            stat.textContent = Math.floor(count);
+                        }
+                    }, 30);
+                }
+            });
+        });
+
+        // Horizontal Scroll Products
+        const productsTrack = document.querySelector('.products-track');
+        const products = gsap.utils.toArray('.product-card');
+
+        gsap.to(productsTrack, {
+            x: () => -(productsTrack.scrollWidth - window.innerWidth),
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.products-section',
+                start: 'top top',
+                end: () => `+=${productsTrack.scrollWidth}`,
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1,
+            }
+        });
+
+        // Brand Cards Hover Animation
+        document.querySelectorAll('.brand-case').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card.querySelector('.brand-logo-placeholder'), {
+                    scale: 1.1,
+                    rotation: 5,
+                    duration: 0.3
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card.querySelector('.brand-logo-placeholder'), {
+                    scale: 1,
+                    rotation: 0,
+                    duration: 0.3
+                });
+            });
+        });
+
+        // Process Steps Animation
+        gsap.utils.toArray('.process-step').forEach((step, i) => {
+            gsap.from(step, {
+                scrollTrigger: {
+                    trigger: step,
+                    start: 'top 80%',
+                },
+                y: 80,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+        });
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form Submission (WhatsApp Integration)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            const message = `*New Inquiry from Website*%0A%0A` +
+                `*Name:* ${encodeURIComponent(data.name)}%0A` +
+                `*Company:* ${encodeURIComponent(data.company)}%0A` +
+                `*Email:* ${encodeURIComponent(data.email)}%0A` +
+                `*Phone:* ${encodeURIComponent(data.phone)}%0A` +
+                `*Quantity:* ${encodeURIComponent(data.quantity)}%0A` +
+                `*Message:* ${encodeURIComponent(data.message)}`;
+            
+            // REPLACE with your WhatsApp number
+            window.open(`https://wa.me/91XXXXXXXXXX?text=${message}`, '_blank');
+        });
+
+        // Parallax Effect on Hero Background
+        gsap.to('.hero-bg', {
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            },
+            y: 200,
+            opacity: 0
+        });
+    </script>
+</body>
+</html>
