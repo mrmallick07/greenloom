@@ -353,45 +353,87 @@
             font-weight: 300;
         }
 
-        .sustainability-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
+        .articles-container {
+            position: relative;
+            height: 600px;
+            width: 100%;
             margin-top: 4rem;
         }
 
-        .sustainability-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 3rem 2.5rem;
+        .floating-article {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            width: 380px;
+            text-decoration: none;
+            color: var(--cream);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            overflow: hidden;
         }
 
-        .sustainability-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
+        .floating-article::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+        }
+
+        .floating-article:hover {
+            transform: scale(1.05) !important;
             border-color: var(--moss);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(107, 155, 125, 0.2);
+            z-index: 20;
         }
 
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
+        .article-media {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--moss);
+            font-weight: 700;
+            margin-bottom: 1rem;
             display: block;
         }
 
-        .sustainability-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--cream);
+        .article-headline {
+            font-size: 1.6rem;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
         }
 
-        .sustainability-card p {
+        .article-cta {
+            font-size: 0.9rem;
             color: var(--sand);
-            line-height: 1.8;
-            font-size: 1.05rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
+
+        .article-cta svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s;
+        }
+
+        .floating-article:hover .article-cta svg {
+            transform: translateX(5px);
+        }
+
+        /* Responsive positioning for normal screens */
+        .article-1 { top: 10%; left: 5%; }
+        .article-2 { top: 40%; left: 35%; z-index: 15; }
+        .article-3 { top: 20%; right: 5%; }
 
         /* Stats Section */
         .stats {
@@ -935,7 +977,22 @@
                 display: none;
             }
 
-            .sustainability-grid,
+            .articles-container {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .floating-article {
+                position: relative;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100%;
+                transform: none !important;
+            }
+
             .stats-container {
                 grid-template-columns: 1fr;
             }
@@ -1092,37 +1149,39 @@
                 <p class="section-subtitle">Every year, 5 trillion plastic bags are used globally. It's time for brands to lead the change toward a circular economy.</p>
             </div>
 
-            <div class="sustainability-grid">
-                <div class="sustainability-card">
-                    <span class="card-icon">🌍</span>
-                    <h3>Plastic Crisis</h3>
-                    <p>1 million plastic bags are used every minute worldwide. Only 9% are recycled. The rest pollute oceans, harm wildlife, and take 1,000 years to decompose.</p>
-                </div>
-                <div class="sustainability-card">
-                    <span class="card-icon">🛍️</span>
-                    <h3>Consumer Demand</h3>
-                    <p>73% of consumers prefer brands with sustainable packaging. Eco-friendly packaging isn't just ethical—it's a competitive advantage that drives loyalty.</p>
-                </div>
-                <div class="sustainability-card">
-                    <span class="card-icon">⚖️</span>
-                    <h3>Regulatory Pressure</h3>
-                    <p>Over 120 countries have banned or restricted single-use plastics. Compliance isn't optional—it's mandatory for brands operating globally.</p>
-                </div>
-                <div class="sustainability-card">
-                    <span class="card-icon">♻️</span>
-                    <h3>Circular Economy</h3>
-                    <p>Jute is 100% biodegradable and reusable. Unlike plastic, it enriches soil when decomposed, creating a true closed-loop system.</p>
-                </div>
-                <div class="sustainability-card">
-                    <span class="card-icon">🌱</span>
-                    <h3>Carbon Negative</h3>
-                    <p>Jute plants absorb more CO₂ than they emit during production. Choosing jute actively reduces your brand's carbon footprint.</p>
-                </div>
-                <div class="sustainability-card">
-                    <span class="card-icon">💚</span>
-                    <h3>Brand Perception</h3>
-                    <p>Sustainable packaging communicates values. Customers remember brands that align with their environmental consciousness and social responsibility.</p>
-                </div>
+            <div class="articles-container">
+                <a href="https://timesofindia.indiatimes.com/blogs/voices/jute-packaging-is-sustainable-but-how-can-an-upgrade-to-the-supply-chain-help-to-scale-up-its-usage/" target="_blank" class="floating-article article-1">
+                    <span class="article-media">— Times of India</span>
+                    <h3 class="article-headline">"Jute packaging is sustainable, but how can we scale up its usage?"</h3>
+                    <div class="article-cta">
+                        Read Article 
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </a>
+
+                <a href="https://www.forbes.com/sites/jeffkart/2021/08/25/jute-bags-are-a-stylish-sustainable-alternative-to-plastic/" target="_blank" class="floating-article article-2">
+                    <span class="article-media">— Forbes</span>
+                    <h3 class="article-headline">"Jute bags are a stylish, sustainable alternative to plastic"</h3>
+                    <div class="article-cta">
+                        Read Article 
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </a>
+
+                <a href="https://www.theguardian.com/environment/2019/oct/20/plastic-pollution-jute-india-golden-fibre" target="_blank" class="floating-article article-3">
+                    <span class="article-media">— The Guardian</span>
+                    <h3 class="article-headline">"Golden fibre: the Indian plant that could beat plastic pollution"</h3>
+                    <div class="article-cta">
+                        Read Article 
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -1497,17 +1556,29 @@
             .to('.hero-cta', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.5')
             .to('.scroll-indicator', { opacity: 1, duration: 0.6 }, '-=0.3');
 
-        // Sustainability Cards Animation
-        gsap.from('.sustainability-card', {
+        // Floating Articles Animation
+        gsap.from('.floating-article', {
             scrollTrigger: {
-                trigger: '.sustainability-grid',
+                trigger: '.articles-container',
                 start: 'top 80%',
             },
-            y: 60,
+            y: 100,
             opacity: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: 'power3.out'
+            duration: 1.2,
+            stagger: 0.3,
+            ease: 'back.out(1.2)',
+            onComplete: () => {
+                // Add continuous floating yoyo effect after entry
+                gsap.utils.toArray('.floating-article').forEach((article, i) => {
+                    gsap.to(article, {
+                        y: "+=20",
+                        duration: 2 + i * 0.5,
+                        yoyo: true,
+                        repeat: -1,
+                        ease: "sine.inOut"
+                    });
+                });
+            }
         });
 
         // Stats Counter Animation
