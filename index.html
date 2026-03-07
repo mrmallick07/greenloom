@@ -987,6 +987,10 @@
                 display: none;
             }
 
+            .hero h1 {
+                font-size: clamp(2.5rem, 6vw, 4rem);
+            }
+
             .articles-container {
                 flex-direction: column;
                 align-items: center;
@@ -999,7 +1003,8 @@
             }
 
             .stats-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
 
             .brands-grid {
@@ -1017,6 +1022,7 @@
 
             .contact-container {
                 grid-template-columns: 1fr;
+                gap: 3rem;
             }
 
             .products-track {
@@ -1031,7 +1037,11 @@
 
         @media (max-width: 640px) {
             nav {
-                padding: 1.5rem 2rem;
+                padding: 1.5rem 1.5rem;
+            }
+
+            .nav-container {
+                justify-content: center;
             }
 
             .hero,
@@ -1040,25 +1050,60 @@
             .brands,
             .process,
             .contact {
-                padding: 6rem 2rem;
+                padding: 4rem 1.5rem;
+            }
+
+            .hero-container {
+                padding: 0 1.5rem;
             }
 
             .hero h1 {
-                font-size: 3rem;
+                font-size: 2.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-cta {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
             }
 
             .products-header-item {
-                width: 280px;
+                width: 300px;
                 padding-right: 1rem;
             }
 
             .products-header-item h2 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
 
             .product-card {
-                width: 280px;
-                height: 400px;
+                width: 300px;
+                height: 420px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .whatsapp-float {
+                width: 60px;
+                height: 60px;
+                bottom: 2rem;
+                right: 2rem;
             }
         }
 
