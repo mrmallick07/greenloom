@@ -374,6 +374,12 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             z-index: 10;
             overflow: hidden;
+            animation: float-animation 6s ease-in-out infinite;
+        }
+
+        @keyframes float-animation {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         .floating-article::before {
@@ -388,10 +394,11 @@
         }
 
         .floating-article:hover {
-            transform: scale(1.05) !important;
+            transform: scale(1.05) translateY(-5px) !important;
             border-color: var(--moss);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(107, 155, 125, 0.2);
             z-index: 20;
+            animation-play-state: paused;
         }
 
         .article-media {
@@ -431,9 +438,9 @@
         }
 
         /* Responsive positioning for normal screens */
-        .article-1 { top: 10%; left: 5%; }
-        .article-2 { top: 40%; left: 35%; z-index: 15; }
-        .article-3 { top: 20%; right: 5%; }
+        .article-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .article-2 { top: 40%; left: 35%; z-index: 15; animation-delay: -2s; }
+        .article-3 { top: 20%; right: 5%; animation-delay: -4s; }
 
         /* Stats Section */
         .stats {
@@ -990,7 +997,6 @@
                 left: 0 !important;
                 right: 0 !important;
                 width: 100%;
-                transform: none !important;
             }
 
             .stats-container {
@@ -1556,32 +1562,7 @@
             .to('.hero-cta', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.5')
             .to('.scroll-indicator', { opacity: 1, duration: 0.6 }, '-=0.3');
 
-        // Floating Articles Animation
-        gsap.from('.floating-article', {
-            scrollTrigger: {
-                trigger: '.articles-container',
-                start: 'top 80%',
-            },
-            y: 100,
-            opacity: 0,
-            duration: 1.2,
-            stagger: 0.3,
-            ease: 'back.out(1.2)',
-            onComplete: () => {
-                // Add continuous floating yoyo effect after entry
-                gsap.utils.toArray('.floating-article').forEach((article, i) => {
-                    gsap.to(article, {
-                        y: "+=20",
-                        duration: 2 + i * 0.5,
-                        yoyo: true,
-                        repeat: -1,
-                        ease: "sine.inOut"
-                    });
-                });
-            }
-        });
-
-        // Stats Counter Animation
+        // Hero Animations
         const stats = document.querySelectorAll('.stat-number');
         stats.forEach(stat => {
             const target = parseInt(stat.getAttribute('data-target'));
