@@ -3,1727 +3,523 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenLoom | Sustainable Packaging Reimagined</title>
-    
-    <!-- Fonts -->
+    <title>GreenLoom | Premium Jute & Cotton Bags | Manufacturer & Exporter</title>
+    <meta name="description" content="India's most trusted manufacturer of customized Jute & Cotton bags. Premium eco-friendly packaging for corporates, events & gifting. Worldwide bulk delivery.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- GSAP for advanced animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    
-    <style>
-        :root {
-            --forest: #1a3a2e;
-            --sage: #4a7c59;
-            --moss: #6b9b7d;
-            --sand: #e8d5b7;
-            --cream: #faf8f5;
-            --terracotta: #d4896d;
-            --charcoal: #2d2d2d;
-            --gold: #c9a961;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Manrope', sans-serif;
-            color: var(--charcoal);
-            background: var(--cream);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Custom Cursor */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--forest);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.15s ease;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-        }
-
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--sage);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.3s ease;
-            transform: translate(-50%, -50%);
-            opacity: 0.6;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 2rem 4rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        nav.scrolled {
-            background: rgba(250, 248, 245, 0.85);
-            backdrop-filter: blur(20px) saturate(180%);
-            padding: 1.2rem 4rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-        }
-
-        .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--forest);
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--charcoal);
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-            letter-spacing: 0.5px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--sage);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cta-nav {
-            background: var(--forest);
-            color: var(--cream);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            transition: all 0.3s;
-        }
-
-        .cta-nav:hover {
-            background: var(--sage);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(26, 58, 46, 0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--cream) 0%, var(--sand) 100%);
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.2; /* Adjusted opacity to ensure text remains readable */
-            background-image: url('images/hero.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 4rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero-label {
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--sage);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-        }
-
-        .hero h1 {
-            font-size: clamp(3.5rem, 8vw, 7rem);
-            font-weight: 900;
-            line-height: 1.1;
-            color: var(--forest);
-            margin-bottom: 2rem;
-            opacity: 0;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 2vw, 1.5rem);
-            color: var(--charcoal);
-            margin-bottom: 3rem;
-            font-weight: 300;
-            opacity: 0;
-            max-width: 600px;
-        }
-
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
-            background: var(--forest);
-            color: var(--cream);
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.6s;
-        }
-
-        .hero-cta:hover::before {
-            left: 100%;
-        }
-
-        .hero-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(26, 58, 46, 0.4);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            opacity: 0;
-        }
-
-        .scroll-indicator span {
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--sage);
-        }
-
-        .scroll-line {
-            width: 2px;
-            height: 60px;
-            background: var(--sage);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .scroll-line::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 30px;
-            background: var(--forest);
-            animation: scrollDown 2s ease-in-out infinite;
-        }
-
-        @keyframes scrollDown {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(200%); }
-        }
-
-        /* Sustainability Section */
-        .sustainability {
-            padding: 10rem 4rem;
-            background: var(--forest);
-            color: var(--cream);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .sustainability::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(106, 155, 125, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(212, 137, 109, 0.1) 0%, transparent 50%);
-        }
-
-        .sustainability-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 6rem;
-        }
-
-        .section-label {
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--moss);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .section-title {
-            font-size: clamp(3rem, 5vw, 5rem);
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 2rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.3rem;
-            opacity: 0.8;
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 300;
-        }
-
-        .articles-container {
-            width: 100%;
-            margin-top: 4rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            padding: 2rem 0;
-        }
-
-        .floating-article {
-            position: relative;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            width: 380px;
-            text-decoration: none;
-            color: var(--cream);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            z-index: 10;
-            overflow: hidden;
-            animation: float-animation 6s ease-in-out infinite;
-        }
-
-        @keyframes float-animation {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .floating-article::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-            z-index: -1;
-        }
-
-        .floating-article:hover {
-            transform: scale(1.05) translateY(-5px) !important;
-            border-color: var(--moss);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(107, 155, 125, 0.2);
-            z-index: 20;
-            animation-play-state: paused;
-        }
-
-        .article-media {
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--moss);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .article-headline {
-            font-size: 1.6rem;
-            font-family: 'Playfair Display', serif;
-            line-height: 1.3;
-            margin-bottom: 1.5rem;
-        }
-
-        .article-cta {
-            font-size: 0.9rem;
-            color: var(--sand);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .article-cta svg {
-            width: 16px;
-            height: 16px;
-            transition: transform 0.3s;
-        }
-
-        .floating-article:hover .article-cta svg {
-            transform: translateX(5px);
-        }
-
-        /* Removed absolute positioning for articles to ensure visibility */
-        .article-1 { animation-delay: 0s; }
-        .article-2 { animation-delay: -2s; margin-top: 4rem; z-index: 15; }
-        .article-3 { animation-delay: -4s; }
-
-        /* Stats Section */
-        .stats {
-            padding: 8rem 4rem;
-            background: var(--cream);
-            position: relative;
-        }
-
-        .stats-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4rem;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3.5rem, 5vw, 5rem);
-            font-weight: 900;
-            color: var(--forest);
-            line-height: 1;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            color: var(--charcoal);
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        /* Horizontal Scroll Products */
-        .products-section {
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            background: var(--sand);
-        }
-
-        .products-sticky {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .products-header-item {
-            flex-shrink: 0;
-            width: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-right: 2rem;
-        }
-
-        .products-header-item h2 {
-            font-size: clamp(3rem, 5vw, 4.5rem);
-            color: var(--forest);
-            margin-bottom: 1rem;
-        }
-
-        .products-header-item p {
-            font-size: 1.2rem;
-            color: var(--charcoal);
-            max-width: 500px;
-        }
-
-        .products-track {
-            display: flex;
-            gap: 3rem;
-            padding: 0 4rem;
-            will-change: transform;
-        }
-
-        .product-card {
-            flex-shrink: 0;
-            width: 450px;
-            height: 600px;
-            background: white;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            transition: transform 0.4s;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .product-image-container {
-            width: 100%;
-            height: 70%;
-            background: linear-gradient(135deg, var(--sand), var(--cream));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-image-placeholder {
-            font-size: 1rem;
-            color: var(--charcoal);
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .product-info {
-            padding: 2rem;
-            height: 30%;
-        }
-
-        .product-info h3 {
-            font-size: 1.8rem;
-            color: var(--forest);
-            margin-bottom: 0.5rem;
-        }
-
-        .product-info p {
-            color: var(--charcoal);
-            font-size: 0.95rem;
-            opacity: 0.8;
-        }
-
-        /* Brand Showcase Section */
-        .brands {
-            padding: 10rem 4rem;
-            background: var(--cream);
-        }
-
-        .brands-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .brands-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .brand-case {
-            background: white;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .brand-case:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        .brand-image {
-            width: 100%;
-            height: 350px;
-            background: linear-gradient(135deg, var(--sand), var(--moss));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .brand-logo-placeholder {
-            width: 120px;
-            height: 120px;
-            background: white;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--forest);
-            font-size: 1.5rem;
-        }
-
-        .brand-content {
-            padding: 3rem;
-        }
-
-        .brand-content h3 {
-            font-size: 2rem;
-            color: var(--forest);
-            margin-bottom: 1rem;
-        }
-
-        .brand-stats {
-            display: flex;
-            gap: 3rem;
-            margin: 2rem 0;
-        }
-
-        .brand-stat {
-            flex: 1;
-        }
-
-        .brand-stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--sage);
-            display: block;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .brand-stat-label {
-            font-size: 0.9rem;
-            color: var(--charcoal);
-            opacity: 0.7;
-        }
-
-        .brand-content p {
-            color: var(--charcoal);
-            line-height: 1.8;
-            font-size: 1.05rem;
-        }
-
-        /* Process Section */
-        .process {
-            padding: 10rem 4rem;
-            background: linear-gradient(180deg, var(--cream) 0%, white 100%);
-        }
-
-        .process-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .process-steps {
-            margin-top: 6rem;
-            position: relative;
-        }
-
-        .process-step {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            margin-bottom: 8rem;
-            align-items: center;
-        }
-
-        .process-step:nth-child(even) {
-            direction: rtl;
-        }
-
-        .process-step:nth-child(even) > * {
-            direction: ltr;
-        }
-
-        .step-visual {
-            height: 400px;
-            background: linear-gradient(135deg, var(--sand), var(--moss));
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .step-number {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            font-size: 8rem;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.2);
-            font-family: 'Playfair Display', serif;
-            line-height: 1;
-        }
-
-        .step-content h3 {
-            font-size: 2.5rem;
-            color: var(--forest);
-            margin-bottom: 1.5rem;
-        }
-
-        .step-content p {
-            font-size: 1.15rem;
-            color: var(--charcoal);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .step-features {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .step-features li {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1.05rem;
-            color: var(--charcoal);
-        }
-
-        .step-features li::before {
-            content: '✓';
-            color: var(--sage);
-            font-weight: 700;
-            font-size: 1.3rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 10rem 4rem;
-            background: var(--forest);
-            color: var(--cream);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: radial-gradient(circle at 80% 50%, rgba(106, 155, 125, 0.1) 0%, transparent 70%);
-        }
-
-        .contact-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .contact-info h2 {
-            font-size: clamp(3rem, 5vw, 4.5rem);
-            margin-bottom: 2rem;
-            line-height: 1.2;
-        }
-
-        .contact-info p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 3rem;
-            line-height: 1.8;
-        }
-
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
-
-        .contact-form {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            padding: 3.5rem;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1.2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            color: var(--cream);
-            font-family: 'Manrope', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(250, 248, 245, 0.5);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--moss);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1.3rem;
-            background: var(--cream);
-            color: var(--forest);
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            letter-spacing: 0.5px;
-        }
-
-        .submit-btn:hover {
-            background: var(--sand);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--charcoal);
-            color: var(--sand);
-            padding: 4rem 4rem 2rem;
-        }
-
-        .footer-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--cream);
-            margin-bottom: 1rem;
-        }
-
-        .footer-tagline {
-            font-size: 1.1rem;
-            opacity: 0.7;
-            margin-bottom: 3rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--sand);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--cream);
-        }
-
-        .footer-copyright {
-            opacity: 0.5;
-            font-size: 0.9rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* WhatsApp Float */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 3rem;
-            right: 3rem;
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.5);
-            cursor: pointer;
-            z-index: 999;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 15px 50px rgba(37, 211, 102, 0.6);
-        }
-
-        .whatsapp-float svg {
-            width: 35px;
-            height: 35px;
-            fill: white;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: clamp(2.5rem, 6vw, 4rem);
-            }
-
-            .articles-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 2rem;
-            }
-
-            .floating-article {
-                width: 100%;
-                margin-top: 0 !important;
-            }
-
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2rem;
-            }
-
-            .brands-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .process-step {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .process-step:nth-child(even) {
-                direction: ltr;
-            }
-
-            .contact-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .products-track {
-                padding: 0 2rem;
-            }
-
-            .product-card {
-                width: 350px;
-                height: 500px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            nav {
-                padding: 1.5rem 1.5rem;
-            }
-
-            .nav-container {
-                justify-content: center;
-            }
-
-            .hero,
-            .sustainability,
-            .stats,
-            .brands,
-            .process,
-            .contact {
-                padding: 4rem 1.5rem;
-            }
-
-            .hero-container {
-                padding: 0 1.5rem;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-                margin-bottom: 2rem;
-            }
-
-            .hero-cta {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .products-header-item {
-                width: 300px;
-                padding-right: 1rem;
-            }
-
-            .products-header-item h2 {
-                font-size: 2.2rem;
-            }
-
-            .product-card {
-                width: 300px;
-                height: 420px;
-            }
-
-            .stats-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .contact-form {
-                padding: 2rem;
-            }
-
-            .whatsapp-float {
-                width: 60px;
-                height: 60px;
-                bottom: 2rem;
-                right: 2rem;
-            }
-        }
-
-        /* Loading Animation */
-        .page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--forest);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: opacity 0.5s, visibility 0.5s;
-        }
-
-        .page-loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--cream);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Page Loader -->
-    <div class="page-loader">
-        <div class="loader-logo">GreenLoom</div>
+
+<!-- Page Loader -->
+<div class="page-loader">
+    <div class="loader-logo">GreenLoom</div>
+</div>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <span>🌿 India's Trusted Eco-Friendly Bag Manufacturer — Bulk Orders Welcome</span>
+    <div class="top-bar-links">
+        <a href="tel:+91XXXXXXXXXX">📞 +91 XXXXX XXXXX</a>
+        <a href="mailto:hello@greenloom.com">📧 hello@greenloom.com</a>
     </div>
+</div>
 
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+<!-- Navigation -->
+<nav id="nav">
+    <div class="nav-container">
+        <a href="#" class="logo">Green<span>Loom</span></a>
+        <ul class="nav-links">
+            <li>
+                <a href="#categories">Products <span class="arrow">▼</span></a>
+                <div class="dropdown">
+                    <a href="#cat-shopping"><span class="dd-icon">🛍️</span> Jute Shopping Bags</a>
+                    <a href="#cat-wine"><span class="dd-icon">🍷</span> Wine & Bottle Bags</a>
+                    <a href="#cat-gift"><span class="dd-icon">🎁</span> Gift Bags & Pouches</a>
+                    <a href="#cat-cotton"><span class="dd-icon">👜</span> Cotton & Canvas Totes</a>
+                    <a href="#cat-conference"><span class="dd-icon">💼</span> Conference & Office</a>
+                    <a href="#cat-planters"><span class="dd-icon">🌱</span> Jute Planters</a>
+                </div>
+            </li>
+            <li><a href="#why-us">Why Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact" class="cta-nav">Get Quote</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
 
-    <!-- Navigation -->
-    <nav id="nav">
-        <div class="nav-container">
-            <a href="#" class="logo" style="text-decoration: none;">
-                <img src="images/logo.png" alt="GreenLoom Logo" style="height: 40px; width: auto; display: block;" onerror="this.style.display='none'; this.nextSibling.style.display='inline';">
-                <span style="display: none;">GreenLoom</span>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-container">
+        <div class="hero-content fade-up">
+            <div class="hero-label">Sustainable Packaging Solutions</div>
+            <h1>Premium Jute & Cotton Bags,<br><em>Customized</em> For Your Brand</h1>
+            <p class="hero-subtitle">From corporate giveaways to eco-friendly retail packaging — we manufacture premium quality jute & cotton bags tailored to your brand identity. Trusted by 10,000+ clients worldwide.</p>
+            <div class="hero-badges">
+                <div class="hero-badge"><span class="badge-icon">✅</span> Bulk Orders Only</div>
+                <div class="hero-badge"><span class="badge-icon">🌍</span> Global Shipping</div>
+                <div class="hero-badge"><span class="badge-icon">🎨</span> Fully Customizable</div>
+            </div>
+            <div class="hero-actions">
+                <a href="#contact" class="btn-primary">Request Wholesale Quote →</a>
+                <a href="#categories" class="btn-secondary">Explore Products</a>
+            </div>
+        </div>
+        <div class="hero-images fade-up">
+            <div class="hero-img"><img src="images/jute_shopping_1.png" alt="Premium Jute Tote Bag"></div>
+            <div class="hero-img"><img src="images/wine_bag_1.png" alt="Jute Wine Carrier"></div>
+            <div class="hero-img"><img src="images/gift_bag_1.png" alt="Jute Gift Bag"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="stats">
+    <div class="stats-container">
+        <div class="stat-item fade-up"><span class="stat-number" data-target="10000">0</span><div class="stat-label">Happy Clients</div></div>
+        <div class="stat-item fade-up"><span class="stat-number" data-target="50">0</span><div class="stat-label">Countries Served</div></div>
+        <div class="stat-item fade-up"><span class="stat-number" data-target="100">0</span><div class="stat-label">% Eco-Friendly</div></div>
+        <div class="stat-item fade-up"><span class="stat-number" data-target="7">0</span><div class="stat-label">Day Delivery</div></div>
+    </div>
+</section>
+
+<!-- Categories Overview -->
+<section class="categories" id="categories">
+    <div class="categories-container">
+        <div class="section-header fade-up">
+            <div class="section-label">Our Product Range</div>
+            <h2 class="section-title">Explore Our Collections</h2>
+            <p class="section-subtitle">From everyday totes to premium gift packaging — discover our complete range of eco-friendly bag solutions</p>
+        </div>
+        <div class="categories-grid">
+            <a href="#cat-shopping" class="category-card fade-up">
+                <div class="category-thumb">
+                    <img src="images/jute_shopping_1.png" alt="Jute Shopping Bags">
+                    <span class="category-badge-overlay">Bestseller</span>
+                </div>
+                <div class="category-body">
+                    <h3>Jute Shopping Bags</h3>
+                    <p>Premium shopping totes with custom branding — perfect for retail, promotions & everyday use.</p>
+                    <span class="category-link">Explore Collection →</span>
+                </div>
             </a>
-            <ul class="nav-links">
-                <li><a href="#sustainability">Impact</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#brands">Case Studies</a></li>
-                <li><a href="#process">Process</a></li>
-                <li><a href="#contact" class="cta-nav">Get Started</a></li>
-            </ul>
+            <a href="#cat-wine" class="category-card fade-up">
+                <div class="category-thumb">
+                    <img src="images/wine_bag_1.png" alt="Wine & Bottle Bags">
+                </div>
+                <div class="category-body">
+                    <h3>Wine & Bottle Bags</h3>
+                    <p>Elegant jute carriers for wine, water & spirits — with single and multi-bottle options.</p>
+                    <span class="category-link">Explore Collection →</span>
+                </div>
+            </a>
+            <a href="#cat-gift" class="category-card fade-up">
+                <div class="category-thumb">
+                    <img src="images/gift_bag_2.png" alt="Gift Bags & Pouches">
+                    <span class="category-badge-overlay">Popular</span>
+                </div>
+                <div class="category-body">
+                    <h3>Gift Bags & Pouches</h3>
+                    <p>Beautiful jute pouches & gift bags for weddings, festivals, corporate gifting & events.</p>
+                    <span class="category-link">Explore Collection →</span>
+                </div>
+            </a>
+            <a href="#cat-cotton" class="category-card fade-up">
+                <div class="category-thumb">
+                    <img src="images/cotton_tote_2.png" alt="Cotton Canvas Totes">
+                </div>
+                <div class="category-body">
+                    <h3>Cotton & Canvas Totes</h3>
+                    <p>Versatile cotton and canvas bags — lightweight, printable & perfect for lifestyle brands.</p>
+                    <span class="category-link">Explore Collection →</span>
+                </div>
+            </a>
+            <a href="#cat-conference" class="category-card fade-up">
+                <div class="category-thumb">
+                    <img src="images/conference_1.png" alt="Conference & Office Bags">
+                </div>
+                <div class="category-body">
+                    <h3>Conference & Office</h3>
+                    <p>Professional jute laptop bags, file folders & sling bags for corporate events & offices.</p>
+                    <span class="category-link">Explore Collection →</span>
+                </div>
+            </a>
+            <a href="#cat-planters" class="category-card fade-up">
+                <div class="category-thumb">
+                    <img src="images/planter_1.png" alt="Jute Planters">
+                    <span class="category-badge-overlay">New</span>
+                </div>
+                <div class="category-body">
+                    <h3>Jute Planters & Grow Bags</h3>
+                    <p>Eco-friendly planters, grow bags & wall hangers for indoor, outdoor & corporate gifting.</p>
+                    <span class="category-link">Explore Collection →</span>
+                </div>
+            </a>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-label">Sustainable Packaging Solutions</div>
-                <h1>Weaving<br>Sustainability<br>into Brands</h1>
-                <p class="hero-subtitle">Premium customized jute packaging that transforms your brand's environmental impact while elevating customer experience.</p>
-                <a href="#contact" class="hero-cta">
-                    Request Samples
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </a>
+<!-- CATEGORY 1: Shopping Bags -->
+<section class="category-detail" id="cat-shopping">
+    <div class="category-detail-container">
+        <div class="category-detail-layout">
+            <div class="detail-content fade-up">
+                <div class="section-label">Branding & Promotion</div>
+                <h2>Jute Shopping Bags</h2>
+                <p>Our flagship product line — premium jute shopping bags that transform everyday packaging into a walking billboard for your brand. Available in laminated and unlaminated options, with custom printing, handles, and sizes to match your exact requirements.</p>
+                <ul class="detail-features">
+                    <li>Custom logo printing (screen, digital, heat transfer)</li>
+                    <li>Multiple handle options: cotton, leather, cane, rope</li>
+                    <li>Laminated & unlaminated variants</li>
+                    <li>Available from 500 units MOQ</li>
+                </ul>
+                <a href="#contact" class="btn-primary">Request Samples →</a>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <span>Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <!-- Sustainability Section -->
-    <section class="sustainability" id="sustainability">
-        <div class="sustainability-container">
-            <div class="section-header">
-                <div class="section-label">Why It Matters</div>
-                <h2 class="section-title">The Sustainability Imperative</h2>
-                <p class="section-subtitle">Every year, 5 trillion plastic bags are used globally. It's time for brands to lead the change toward a circular economy.</p>
-            </div>
-
-            <div class="articles-container">
-                <a href="https://timesofindia.indiatimes.com/blogs/voices/jute-packaging-is-sustainable-but-how-can-an-upgrade-to-the-supply-chain-help-to-scale-up-its-usage/" target="_blank" class="floating-article article-1">
-                    <span class="article-media">— Times of India</span>
-                    <h3 class="article-headline">"Jute packaging is sustainable, but how can we scale up its usage?"</h3>
-                    <div class="article-cta">
-                        Read Article 
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </div>
-                </a>
-
-                <a href="https://www.forbes.com/sites/jeffkart/2021/08/25/jute-bags-are-a-stylish-sustainable-alternative-to-plastic/" target="_blank" class="floating-article article-2">
-                    <span class="article-media">— Forbes</span>
-                    <h3 class="article-headline">"Jute bags are a stylish, sustainable alternative to plastic"</h3>
-                    <div class="article-cta">
-                        Read Article 
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </div>
-                </a>
-
-                <a href="https://www.theguardian.com/environment/2019/oct/20/plastic-pollution-jute-india-golden-fibre" target="_blank" class="floating-article article-3">
-                    <span class="article-media">— The Guardian</span>
-                    <h3 class="article-headline">"Golden fibre: the Indian plant that could beat plastic pollution"</h3>
-                    <div class="article-cta">
-                        Read Article 
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stats-container">
-            <div class="stat-item">
-                <span class="stat-number" data-target="500">0</span>
-                <div class="stat-label">Min Order Quantity</div>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="7">0</span>
-                <div class="stat-label">Day Delivery</div>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="100">0</span>
-                <div class="stat-label">% Customizable</div>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="0">0</span>
-                <div class="stat-label">Plastic Used</div>
+            <div class="detail-gallery fade-up">
+                <div class="detail-gallery-img"><img src="images/jute_shopping_1.png" alt="Jute Tote with Leather Handles"></div>
+                <div class="detail-gallery-img"><img src="images/jute_shopping_2.png" alt="Branded Jute Bag"></div>
+                <div class="detail-gallery-img"><img src="images/jute_shopping_3.png" alt="Printed Floral Jute Bag"></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Horizontal Scroll Products -->
-    <section class="products-section" id="products">
-        <div class="products-sticky">
-            <div class="products-track">
-                <div class="products-header-item">
-                    <h2>Our Collection</h2>
-                    <p>Premium jute packaging designed for modern brands</p>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="images/tote.jpg" alt="Luxury Shopping Tote" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="product-info">
-                        <h3>Luxury Totes</h3>
-                        <p>Luxury Shopping Tote with high-end finishing</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="images/wine.jpg" alt="Wine Bottle Carrier" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="product-info">
-                        <h3>Wine Carriers</h3>
-                        <p>Sophisticated jute carrier for premium wines</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="images/gift.jpg" alt="Corporate Gift Bag" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="product-info">
-                        <h3>Corporate Gifts</h3>
-                        <p>Custom branded premium event giveaway</p>
-                    </div>
-                </div>
+<!-- CATEGORY 2: Wine & Bottle Bags -->
+<section class="category-detail" id="cat-wine">
+    <div class="category-detail-container">
+        <div class="category-detail-layout">
+            <div class="detail-content fade-up">
+                <div class="section-label">Specialty Packaging</div>
+                <h2>Wine & Bottle Bags</h2>
+                <p>Sophisticated jute carriers designed specifically for bottles — from single wine carriers with window cutouts to 6-bottle party bags. These bags add a touch of rustic elegance to premium beverages and make a lasting impression at tastings, events, and gifting occasions.</p>
+                <ul class="detail-features">
+                    <li>Single, double & 6-bottle configurations</li>
+                    <li>Window cutout options to showcase labels</li>
+                    <li>Padded interiors for secure transport</li>
+                    <li>Custom branding for wineries & beverage brands</li>
+                </ul>
+                <a href="#contact" class="btn-primary">Get Pricing →</a>
+            </div>
+            <div class="detail-gallery fade-up">
+                <div class="detail-gallery-img"><img src="images/wine_bag_1.png" alt="Jute Wine Carrier"></div>
+                <div class="detail-gallery-img"><img src="images/wine_bag_2.png" alt="Wine Bag with Window"></div>
+                <div class="detail-gallery-img"><img src="images/wine_bag_3.png" alt="6-Bottle Wine Carrier"></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Brand Showcase -->
-    <section class="brands" id="brands">
-        <div class="brands-container">
-            <div class="section-header">
-                <div class="section-label">Success Stories</div>
-                <h2 class="section-title">Brands We've Empowered</h2>
-                <p class="section-subtitle">See how businesses transformed their packaging and customer perception</p>
+<!-- CATEGORY 3: Gift Bags -->
+<section class="category-detail" id="cat-gift">
+    <div class="category-detail-container">
+        <div class="category-detail-layout">
+            <div class="detail-content fade-up">
+                <div class="section-label">Gifting & Celebrations</div>
+                <h2>Gift Bags & Pouches</h2>
+                <p>Make every gift memorable with our artfully crafted jute gift bags. From delicate wedding favors adorned with lace and ribbons to festive candy pouches with clear windows — our gift packaging adds warmth and eco-conscious charm to any occasion.</p>
+                <ul class="detail-features">
+                    <li>Wedding favor bags with lace, ribbon & tags</li>
+                    <li>Colorful drawstring pouches in 8+ colors</li>
+                    <li>Clear window bags for food & sweets</li>
+                    <li>Potli, zipper & envelope styles available</li>
+                </ul>
+                <a href="#contact" class="btn-primary">Customize Yours →</a>
             </div>
-
-            <div class="brands-grid">
-                <div class="brand-case">
-                    <div class="brand-image">
-                        <div class="brand-logo-placeholder">BRAND A</div>
-                    </div>
-                    <div class="brand-content">
-                        <h3>Organic Skincare Brand</h3>
-                        <div class="brand-stats">
-                            <div class="brand-stat">
-                                <span class="brand-stat-number">+45%</span>
-                                <span class="brand-stat-label">Customer Loyalty</span>
-                            </div>
-                            <div class="brand-stat">
-                                <span class="brand-stat-number">10K</span>
-                                <span class="brand-stat-label">Bags Delivered</span>
-                            </div>
-                        </div>
-                        <p>"Switching to GreenLoom's jute bags elevated our brand perception overnight. Customers love that our packaging aligns with our organic values."</p>
-                    </div>
-                </div>
-
-                <div class="brand-case">
-                    <div class="brand-image">
-                        <div class="brand-logo-placeholder">BRAND B</div>
-                    </div>
-                    <div class="brand-content">
-                        <h3>Fashion E-commerce</h3>
-                        <div class="brand-stats">
-                            <div class="brand-stat">
-                                <span class="brand-stat-number">+30%</span>
-                                <span class="brand-stat-label">Repeat Orders</span>
-                            </div>
-                            <div class="brand-stat">
-                                <span class="brand-stat-number">50K</span>
-                                <span class="brand-stat-label">Units Sold</span>
-                            </div>
-                        </div>
-                        <p>"Our customers actually reuse the bags daily. That's free advertising every time they step out. Best branding investment we've made."</p>
-                    </div>
-                </div>
-
-                <div class="brand-case">
-                    <div class="brand-image">
-                        <div class="brand-logo-placeholder">BRAND C</div>
-                    </div>
-                    <div class="brand-content">
-                        <h3>Corporate Event Planner</h3>
-                        <div class="brand-stats">
-                            <div class="brand-stat">
-                                <span class="brand-stat-number">100%</span>
-                                <span class="brand-stat-label">On-Time Delivery</span>
-                            </div>
-                            <div class="brand-stat">
-                                <span class="brand-stat-number">5K</span>
-                                <span class="brand-stat-label">Event Bags</span>
-                            </div>
-                        </div>
-                        <p>"Needed 5,000 branded bags for a conference in 10 days. GreenLoom delivered flawlessly. Quality exceeded expectations."</p>
-                    </div>
-                </div>
-
-                <div class="brand-case">
-                    <div class="brand-image">
-                        <div class="brand-logo-placeholder">BRAND D</div>
-                    </div>
-                    <div class="brand-content">
-                        <h3>Artisan Coffee Roaster</h3>
-                        <div class="brand-stats">
-                            <div class="brand-stat">
-                                <span class="brand-stat-number">+60%</span>
-                                <span class="brand-stat-label">Social Shares</span>
-                            </div>
-                            <div class="brand-stat">
-                                <span class="brand-stat-number">3K</span>
-                                <span class="brand-stat-label">Custom Bags</span>
-                            </div>
-                        </div>
-                        <p>"Our jute coffee bags became Instagram-worthy. Customers tag us constantly. The ROI on sustainable packaging is real."</p>
-                    </div>
-                </div>
+            <div class="detail-gallery fade-up">
+                <div class="detail-gallery-img"><img src="images/gift_bag_1.png" alt="Wedding Gift Bag"></div>
+                <div class="detail-gallery-img"><img src="images/gift_bag_2.png" alt="Colourful Jute Pouches"></div>
+                <div class="detail-gallery-img"><img src="images/gift_bag_3.png" alt="Gift Bag with Window"></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Process Section -->
-    <section class="process" id="process">
-        <div class="process-container">
-            <div class="section-header">
-                <div class="section-label">How We Work</div>
-                <h2 class="section-title">From Concept to Delivery</h2>
-                <p class="section-subtitle">Transparent, efficient, and hassle-free collaboration</p>
+<!-- CATEGORY 4: Cotton & Canvas -->
+<section class="category-detail" id="cat-cotton">
+    <div class="category-detail-container">
+        <div class="category-detail-layout">
+            <div class="detail-content fade-up">
+                <div class="section-label">Vegan & Lifestyle</div>
+                <h2>Cotton & Canvas Totes</h2>
+                <p>Lightweight, versatile, and endlessly customizable — our cotton and canvas tote bags are the perfect canvas (literally!) for your brand. From minimalist natural cotton to dyed canvas with pockets, these bags are everyday essentials your customers will love to carry.</p>
+                <ul class="detail-features">
+                    <li>100% organic unbleached cotton available</li>
+                    <li>Heavy-duty 12oz canvas construction</li>
+                    <li>Full-color digital & screen printing</li>
+                    <li>Dyed options in 20+ color choices</li>
+                </ul>
+                <a href="#contact" class="btn-primary">Order Now →</a>
             </div>
+            <div class="detail-gallery fade-up">
+                <div class="detail-gallery-img"><img src="images/cotton_tote_1.png" alt="Natural Cotton Tote"></div>
+                <div class="detail-gallery-img"><img src="images/cotton_tote_2.png" alt="Printed Botanical Tote"></div>
+                <div class="detail-gallery-img"><img src="images/cotton_tote_3.png" alt="Sage Green Canvas Tote"></div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-visual">
-                        <div class="step-number">01</div>
-                        <div class="product-image-placeholder">📸 Consultation Visual</div>
-                    </div>
-                    <div class="step-content">
-                        <h3>Discovery & Consultation</h3>
-                        <p>Share your brand vision, quantity needs, and timeline. We discuss customization options, handle types, sizes, and printing techniques.</p>
-                        <ul class="step-features">
-                            <li>Free design mockups</li>
-                            <li>Material samples provided</li>
-                            <li>Transparent pricing breakdown</li>
-                            <li>MOQ starting at 500 units</li>
-                        </ul>
-                    </div>
+<!-- CATEGORY 5: Conference & Office -->
+<section class="category-detail" id="cat-conference">
+    <div class="category-detail-container">
+        <div class="category-detail-layout">
+            <div class="detail-content fade-up">
+                <div class="section-label">Events & Corporate</div>
+                <h2>Conference & Office Bags</h2>
+                <p>Elevate your corporate events with our professional-grade jute bags. From padded laptop bags with leather accents to branded file folders and messenger bags — these products make a statement about your company's commitment to sustainability while remaining impeccably functional.</p>
+                <ul class="detail-features">
+                    <li>Laptop bags with padded compartments</li>
+                    <li>Jute file folders, envelopes & binders</li>
+                    <li>Sling bags & messenger bags</li>
+                    <li>Perfect for conferences, seminars & events</li>
+                </ul>
+                <a href="#contact" class="btn-primary">Bulk Enquiry →</a>
+            </div>
+            <div class="detail-gallery fade-up">
+                <div class="detail-gallery-img"><img src="images/conference_1.png" alt="Jute Laptop Bag"></div>
+                <div class="detail-gallery-img"><img src="images/conference_2.png" alt="Jute Office Supplies"></div>
+                <div class="detail-gallery-img"><img src="images/jute_shopping_2.png" alt="Branded Conference Bag"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORY 6: Planters -->
+<section class="category-detail" id="cat-planters">
+    <div class="category-detail-container">
+        <div class="category-detail-layout">
+            <div class="detail-content fade-up">
+                <div class="section-label">Green Living</div>
+                <h2>Jute Planters & Grow Bags</h2>
+                <p>Bring nature closer to home with our biodegradable jute planters. Whether you're looking for indoor pot covers, herb grow bags for gardens, or decorative macramé wall hangers — each piece is designed to be as beautiful as it is sustainable. Perfect as corporate green gifts too!</p>
+                <ul class="detail-features">
+                    <li>Indoor pot covers with rolled edges</li>
+                    <li>Outdoor grow bags with waterproof lining</li>
+                    <li>Macramé wall hanging planters</li>
+                    <li>Microgreen & herb kits for corporate gifting</li>
+                </ul>
+                <a href="#contact" class="btn-primary">Start Growing →</a>
+            </div>
+            <div class="detail-gallery fade-up">
+                <div class="detail-gallery-img"><img src="images/planter_1.png" alt="Jute Indoor Planter"></div>
+                <div class="detail-gallery-img"><img src="images/planter_2.png" alt="Jute Herb Grow Bags"></div>
+                <div class="detail-gallery-img"><img src="images/planter_3.png" alt="Macramé Wall Planters"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="why-us" id="why-us">
+    <div class="why-container">
+        <div class="section-header fade-up">
+            <div class="section-label">Why GreenLoom</div>
+            <h2 class="section-title">Your Trusted Sustainability Partner</h2>
+            <p class="section-subtitle">We don't just sell bags — we help brands make a lasting impression while protecting the planet</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card fade-up">
+                <span class="why-icon">🎨</span>
+                <h3>100% Customizable</h3>
+                <p>Your logo, your size, your design. We tailor every bag to your exact brand specifications with unlimited design revisions.</p>
+            </div>
+            <div class="why-card fade-up">
+                <span class="why-icon">♻️</span>
+                <h3>Eco-Friendly Materials</h3>
+                <p>100% biodegradable jute and organic cotton. Every bag replaces hundreds of plastic bags and enriches soil when composted.</p>
+            </div>
+            <div class="why-card fade-up">
+                <span class="why-icon">🚚</span>
+                <h3>Global Delivery</h3>
+                <p>Reliable worldwide shipping with 7-10 day delivery. Serving 50+ countries with secure packaging and real-time tracking.</p>
+            </div>
+            <div class="why-card fade-up">
+                <span class="why-icon">✅</span>
+                <h3>Quality Assured</h3>
+                <p>Multi-stage quality checks, ISO-certified manufacturing, and Pantone color matching for pixel-perfect brand consistency.</p>
+            </div>
+            <div class="why-card fade-up">
+                <span class="why-icon">💰</span>
+                <h3>Competitive Pricing</h3>
+                <p>Direct from the manufacturer — no middlemen. Volume discounts and transparent pricing with no hidden charges.</p>
+            </div>
+            <div class="why-card fade-up">
+                <span class="why-icon">🤝</span>
+                <h3>Dedicated Support</h3>
+                <p>Personal account manager, free design mockups, and 48-hour sample turnaround. We're your partner, not just a vendor.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+    <div class="contact-container">
+        <div class="contact-info fade-up">
+            <h2>Let's Create Something Sustainable Together</h2>
+            <p>Whether you need 500 bags or 50,000 — we're here to bring your brand's eco-vision to life. Get a free quote within 24 hours.</p>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div><strong>Email</strong><br><span style="color:var(--sand)">hello@greenloom.com</span></div>
                 </div>
-
-                <div class="process-step">
-                    <div class="step-visual">
-                        <div class="step-number">02</div>
-                        <div class="product-image-placeholder">📸 Sampling Visual</div>
-                    </div>
-                    <div class="step-content">
-                        <h3>Sampling & Approval</h3>
-                        <p>Within 48 hours, we deliver physical samples with your logo placement. You review quality, feel, and branding before bulk production.</p>
-                        <ul class="step-features">
-                            <li>48-hour sample turnaround</li>
-                            <li>Unlimited revisions included</li>
-                            <li>Color matching with Pantone</li>
-                            <li>Logo proofing & positioning</li>
-                        </ul>
-                    </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div><strong>WhatsApp</strong><br><span style="color:var(--sand)">+91 XXXXX XXXXX</span></div>
                 </div>
-
-                <div class="process-step">
-                    <div class="step-visual">
-                        <div class="step-number">03</div>
-                        <div class="product-image-placeholder">📸 Production Visual</div>
-                    </div>
-                    <div class="step-content">
-                        <h3>Production & Quality Control</h3>
-                        <p>Our manufacturer partner begins bulk production. Every bag undergoes multi-stage quality checks before packaging.</p>
-                        <ul class="step-features">
-                            <li>ISO-certified manufacturers</li>
-                            <li>Real-time production updates</li>
-                            <li>Quality checks at 3 stages</li>
-                            <li>Eco-friendly inks & dyes</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="process-step">
-                    <div class="step-visual">
-                        <div class="step-number">04</div>
-                        <div class="product-image-placeholder">📸 Delivery Visual</div>
-                    </div>
-                    <div class="step-content">
-                        <h3>Delivery & Partnership</h3>
-                        <p>Your order arrives in 7-10 days with detailed invoicing. We provide ongoing support for reorders, design tweaks, and scaling.</p>
-                        <ul class="step-features">
-                            <li>7-10 day delivery guarantee</li>
-                            <li>Secure packaging for transit</li>
-                            <li>Dedicated account manager</li>
-                            <li>Volume discounts for repeat orders</li>
-                        </ul>
-                    </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div><strong>Location</strong><br><span style="color:var(--sand)">Kolkata, India</span></div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-container">
-            <div class="contact-info">
-                <h2>Let's Create Something Sustainable Together</h2>
-                <p>Whether you need 500 bags or 50,000, we're here to bring your brand's sustainability vision to life.</p>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <strong>Email</strong><br>
-                            <span style="color: var(--sand);">greenloom7@gmail.com</span>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <div>
-                            <strong>WhatsApp</strong><br>
-                            <span style="color: var(--sand);">+91 7003711453</span>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <strong>Based in</strong><br>
-                            Kolkata, W.B., India
-                        </div>
-                    </div>
-                </div>
+        <form class="contact-form fade-up" id="contactForm">
+            <div class="form-row">
+                <div class="form-group"><label>Your Name *</label><input type="text" name="name" placeholder="John Doe" required></div>
+                <div class="form-group"><label>Company *</label><input type="text" name="company" placeholder="Your Company" required></div>
             </div>
-
-            <form class="contact-form" id="contactForm">
-                <div class="form-group">
-                    <label>Your Name *</label>
-                    <input type="text" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label>Company Name *</label>
-                    <input type="text" name="company" required>
-                </div>
-                <div class="form-group">
-                    <label>Email Address *</label>
-                    <input type="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone Number *</label>
-                    <input type="tel" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label>Estimated Quantity</label>
-                    <select name="quantity">
-                        <option value="">Select range</option>
-                        <option value="500-1000">500 - 1,000 units</option>
-                        <option value="1000-5000">1,000 - 5,000 units</option>
-                        <option value="5000-10000">5,000 - 10,000 units</option>
-                        <option value="10000+">10,000+ units</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Your Requirements</label>
-                    <textarea name="message" placeholder="Tell us about your project..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Send Inquiry</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">GreenLoom</div>
-            <div class="footer-tagline">Weaving sustainability into every brand</div>
-            <div class="footer-links">
-                <a href="#sustainability">Impact</a>
-                <a href="#products">Products</a>
-                <a href="#brands">Case Studies</a>
-                <a href="#process">Process</a>
-                <a href="#contact">Contact</a>
+            <div class="form-row">
+                <div class="form-group"><label>Email *</label><input type="email" name="email" placeholder="your@email.com" required></div>
+                <div class="form-group"><label>Phone *</label><input type="tel" name="phone" placeholder="+91 ..." required></div>
             </div>
-            <div class="footer-copyright">
-                &copy; 2025 GreenLoom. All rights reserved.
+            <div class="form-group">
+                <label>Product Interest</label>
+                <select name="product">
+                    <option value="">Select a product category</option>
+                    <option>Jute Shopping Bags</option>
+                    <option>Wine & Bottle Bags</option>
+                    <option>Gift Bags & Pouches</option>
+                    <option>Cotton & Canvas Totes</option>
+                    <option>Conference & Office Bags</option>
+                    <option>Jute Planters & Grow Bags</option>
+                    <option>Multiple / Custom</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Estimated Quantity</label>
+                <select name="quantity">
+                    <option value="">Select range</option>
+                    <option>500 – 1,000 units</option>
+                    <option>1,000 – 5,000 units</option>
+                    <option>5,000 – 10,000 units</option>
+                    <option>10,000+ units</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Your Requirements</label><textarea name="message" placeholder="Tell us about your project, preferred sizes, printing needs..."></textarea></div>
+            <button type="submit" class="submit-btn">Send Inquiry →</button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">GreenLoom</div>
+                <p>India's premier manufacturer of eco-friendly jute & cotton bags. Helping brands worldwide switch from plastic to sustainable packaging solutions since 2018.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a href="#cat-shopping">Shopping Bags</a>
+                <a href="#cat-wine">Wine & Bottle Bags</a>
+                <a href="#cat-gift">Gift Bags</a>
+                <a href="#cat-cotton">Cotton Totes</a>
+                <a href="#cat-conference">Conference Bags</a>
+                <a href="#cat-planters">Jute Planters</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#why-us">About Us</a>
+                <a href="#why-us">Why GreenLoom</a>
+                <a href="#">Blog</a>
+                <a href="#">Sustainability</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="#contact">Contact Us</a>
+                <a href="#contact">Request Quote</a>
+                <a href="#">FAQs</a>
+                <a href="#">Shipping Info</a>
             </div>
         </div>
-    </footer>
+        <div class="footer-bottom">
+            <span>&copy; 2025 GreenLoom. All rights reserved.</span>
+            <span>A Green Initiative | Made with 💚 in India</span>
+        </div>
+    </div>
+</footer>
 
-    <!-- WhatsApp Float -->
-    <a href="https://wa.me/917003711453?text=Hi%20GreenLoom!%20I'm%20interested%20in%20sustainable%20jute%20packaging" class="whatsapp-float" target="_blank">
-        <svg viewBox="0 0 32 32">
-            <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.246 1.408 1.408-5.246-0.292-0.507c-1.224-2.162-1.87-4.588-1.87-7.070 0-7.467 6.067-13.533 13.533-13.533s13.533 6.067 13.533 13.533-6.067 13.533-13.533 13.533zM21.867 18.267c-0.373-0.187-2.214-1.093-2.56-1.213-0.347-0.133-0.6-0.187-0.853 0.187s-0.973 1.213-1.2 1.467c-0.213 0.24-0.44 0.267-0.813 0.080-0.373-0.187-1.573-0.587-3-1.867-1.107-0.987-1.853-2.2-2.067-2.573-0.213-0.373-0.027-0.573 0.16-0.76 0.173-0.16 0.373-0.44 0.56-0.653 0.187-0.213 0.24-0.373 0.373-0.627 0.133-0.24 0.067-0.467-0.027-0.653s-0.853-2.080-1.173-2.853c-0.307-0.747-0.627-0.64-0.853-0.653-0.213-0.013-0.467-0.013-0.72-0.013s-0.653 0.093-1 0.467c-0.347 0.373-1.333 1.307-1.333 3.187s1.36 3.693 1.547 3.947c0.187 0.24 2.613 4.053 6.373 5.533 0.893 0.373 1.587 0.6 2.133 0.76 0.893 0.293 1.707 0.253 2.347 0.147 0.72-0.107 2.214-0.907 2.52-1.787 0.32-0.88 0.32-1.64 0.227-1.787-0.080-0.133-0.333-0.227-0.707-0.413z"/>
-        </svg>
-    </a>
+<!-- WhatsApp Float -->
+<a href="https://wa.me/91XXXXXXXXXX?text=Hi%20GreenLoom!%20I'm%20interested%20in%20sustainable%20jute%20packaging" class="whatsapp-float" target="_blank">
+    <svg viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.246 1.408 1.408-5.246-0.292-0.507c-1.224-2.162-1.87-4.588-1.87-7.070 0-7.467 6.067-13.533 13.533-13.533s13.533 6.067 13.533 13.533-6.067 13.533-13.533 13.533zM21.867 18.267c-0.373-0.187-2.214-1.093-2.56-1.213-0.347-0.133-0.6-0.187-0.853 0.187s-0.973 1.213-1.2 1.467c-0.213 0.24-0.44 0.267-0.813 0.080-0.373-0.187-1.573-0.587-3-1.867-1.107-0.987-1.853-2.2-2.067-2.573-0.213-0.373-0.027-0.573 0.16-0.76 0.173-0.16 0.373-0.44 0.56-0.653 0.187-0.213 0.24-0.373 0.373-0.627 0.133-0.24 0.067-0.467-0.027-0.653s-0.853-2.080-1.173-2.853c-0.307-0.747-0.627-0.64-0.853-0.653-0.213-0.013-0.467-0.013-0.72-0.013s-0.653 0.093-1 0.467c-0.347 0.373-1.333 1.307-1.333 3.187s1.36 3.693 1.547 3.947c0.187 0.24 2.613 4.053 6.373 5.533 0.893 0.373 1.587 0.6 2.133 0.76 0.893 0.293 1.707 0.253 2.347 0.147 0.72-0.107 2.214-0.907 2.52-1.787 0.32-0.88 0.32-1.64 0.227-1.787-0.080-0.133-0.333-0.227-0.707-0.413z"/></svg>
+</a>
 
-    <script>
-        // GSAP Animations
-        gsap.registerPlugin(ScrollTrigger);
+<script>
+// Page Loader
+window.addEventListener('load', () => {
+    setTimeout(() => document.querySelector('.page-loader').classList.add('hidden'), 1200);
+});
 
-        // Page Loader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.querySelector('.page-loader').classList.add('hidden');
-            }, 1500);
-        });
+// Scroll Reveal
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const follower = document.querySelector('.cursor-follower');
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                follower.style.left = e.clientX + 'px';
-                follower.style.top = e.clientY + 'px';
-            }, 100);
-        });
-
-        // Navigation Scroll Effect
-        const nav = document.getElementById('nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Hero Animations
-        gsap.timeline()
-            .to('.hero-label', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
-            .to('.hero h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.5')
-            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7')
-            .to('.hero-cta', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.5')
-            .to('.scroll-indicator', { opacity: 1, duration: 0.6 }, '-=0.3');
-
-        // Hero Animations
-        const stats = document.querySelectorAll('.stat-number');
-        stats.forEach(stat => {
-            const target = parseInt(stat.getAttribute('data-target'));
-            
-            ScrollTrigger.create({
-                trigger: stat,
-                start: 'top 80%',
-                onEnter: () => {
-                    let count = 0;
-                    const increment = target / 50;
-                    const timer = setInterval(() => {
-                        count += increment;
-                        if (count >= target) {
-                            stat.textContent = target + (target === 100 || target === 0 ? '' : '+');
-                            clearInterval(timer);
-                        } else {
-                            stat.textContent = Math.floor(count);
-                        }
-                    }, 30);
+// Stats Counter
+const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target);
+            let count = 0;
+            const duration = 2000;
+            const step = target / (duration / 30);
+            const timer = setInterval(() => {
+                count += step;
+                if (count >= target) {
+                    el.textContent = target.toLocaleString() + (target > 10 ? '+' : '');
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(count).toLocaleString();
                 }
-            });
-        });
+            }, 30);
+            statObserver.unobserve(el);
+        }
+    });
+}, { threshold: 0.5 });
 
-        // Horizontal Scroll Products
-        const productsTrack = document.querySelector('.products-track');
-        const products = gsap.utils.toArray('.product-card');
+document.querySelectorAll('.stat-number').forEach(el => statObserver.observe(el));
 
-        gsap.to(productsTrack, {
-            x: () => -(productsTrack.scrollWidth - window.innerWidth),
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.products-section',
-                start: 'top top',
-                end: () => `+=${productsTrack.scrollWidth}`,
-                scrub: 1,
-                pin: true,
-                anticipatePin: 1,
-            }
-        });
-
-        // Brand Cards Hover Animation
-        document.querySelectorAll('.brand-case').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                gsap.to(card.querySelector('.brand-logo-placeholder'), {
-                    scale: 1.1,
-                    rotation: 5,
-                    duration: 0.3
-                });
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                gsap.to(card.querySelector('.brand-logo-placeholder'), {
-                    scale: 1,
-                    rotation: 0,
-                    duration: 0.3
-                });
-            });
-        });
-
-        // Process Steps Animation
-        gsap.utils.toArray('.process-step').forEach((step, i) => {
-            gsap.from(step, {
-                scrollTrigger: {
-                    trigger: step,
-                    start: 'top 80%',
-                },
-                y: 80,
-                opacity: 0,
-                duration: 1,
-                ease: 'power3.out'
-            });
-        });
-
-        // Smooth Scroll for Navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Form Submission (WhatsApp Integration)
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
             e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            const message = `*New Inquiry from Website*%0A%0A` +
-                `*Name:* ${encodeURIComponent(data.name)}%0A` +
-                `*Company:* ${encodeURIComponent(data.company)}%0A` +
-                `*Email:* ${encodeURIComponent(data.email)}%0A` +
-                `*Phone:* ${encodeURIComponent(data.phone)}%0A` +
-                `*Quantity:* ${encodeURIComponent(data.quantity)}%0A` +
-                `*Message:* ${encodeURIComponent(data.message)}`;
-            
-            // REPLACE with your WhatsApp number
-            window.open(`https://wa.me/91XXXXXXXXXX?text=${message}`, '_blank');
-        });
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
 
-        // Parallax Effect on Hero Background
-        gsap.to('.hero-bg', {
-            scrollTrigger: {
-                trigger: '.hero',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true
-            },
-            y: 200,
-            opacity: 0
-        });
-    </script>
+// Form Submit
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you! Your inquiry has been sent. We will get back to you within 24 hours.');
+    this.reset();
+});
+</script>
+
 </body>
 </html>
